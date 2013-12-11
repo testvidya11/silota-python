@@ -360,7 +360,7 @@ class Schema(object):
 class Topic(BaseResource):
     _pks = ['id', ]
     _ints = ['id', ]
-    _strs = ['name', 'suggest_template', 'serp_template' ]
+    _strs = ['name', 'suggest_template', 'value_key' ]
     _bools = ['draft', ]
     _dates = ['updated_at', 'last_crawl']
 
@@ -537,6 +537,7 @@ class Engine(BaseResource):
             d['fields'] = [x for x in topic.schema]
             d['templates'] = {}
             d['templates']['suggest'] = topic.templates.suggest
+            d['value_key'] = topic.value_key
             payload['topics'].append(d)
 
         url_args = urllib.quote(json_encode(payload))
