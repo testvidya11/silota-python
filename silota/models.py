@@ -307,7 +307,7 @@ class Templates(BaseResource):
         super(Templates, self).__init__()
 
     def __repr__(self):
-        return "<templates '{0}'>".format('lala')
+        return "<templates '{0}'>".format('suggest')
 
     def update(self, serp=None, suggest=None):
         payload = {}
