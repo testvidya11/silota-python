@@ -281,9 +281,8 @@ class Document(BaseResource):
         )
 
         c = cls()
-        #c.data = d
         c._h = h
-        #c.topic = kwargs.get('topic')
+        c.topic = kwargs.get('topic')
 
         for k, v in d.iteritems():
             if k in obj.__dict__:

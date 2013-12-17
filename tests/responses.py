@@ -1,8 +1,8 @@
 from json import dumps as json_encode
-
+import random
 
 def _paginate(body):
-    return {"pagination": len(body),
+    return {"pagination": {'count': len(body)},
             "results": body}
 
 _topics = [{
@@ -39,11 +39,25 @@ _templates = {
     }
 }
 
+_documents = {
+    4848024419736434708: []
+}
+
 def get_templates(topic_id):
     return _templates[topic_id]
 
 def get_schema(topic_id):
     return _schema[topic_id]
+
+def get_documents(topic_id):
+    return _paginate(_documents[topic_id])
+
+def put_documents(topic_id, doc):
+    if 'id' not in doc:
+        doc['id'] = ''.join(random.sample('abcdefgh1234567890', 8))
+
+    _documents[topic_id].append(doc)
+    return ''
 
 def get_topics(engine_id, topic_id=None):
     topics = [x for x in _topics if x['engine'] == engine_id]

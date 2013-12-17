@@ -95,7 +95,22 @@ class Suite(WSGIServerTest):
         pass
 
     def test_15_get_documents(self):
-        pass
+        with self.start_server(app):
+            client = silota.from_key(SILOTA_TEST_API_KEY)
+            topic = client.engines[VALID_ENGINE_ID].topics[VALID_TOPIC_ID]
+            documents = topic.documents
+            self.assertEqual(len(documents), 0)
+
+            topic.documents.add(**{'name': 'John Smith',
+                                 'bio': 'programmer'})
+            self.assertEqual(len(topic.documents), 1)
+            self.assertEqual(topic.documents[0].name, 'John Smith')
+            self.assertEqual(topic.documents[0].bio, 'programmer')
+
+            topic.documents.add(**{'name': 'Jane Doe',
+                                 'bio': 'architect'})
+            self.assertEqual(len(topic.documents), 2)
+
 
     def test_16_get_documents_pagination(self):
         pass
